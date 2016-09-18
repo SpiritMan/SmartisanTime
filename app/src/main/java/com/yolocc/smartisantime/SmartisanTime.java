@@ -57,6 +57,9 @@ public class SmartisanTime extends View {
     //中心圆
     private Paint inCirclePaint, inRedCirclePaint;
 
+    //为了显示秒针晃动效果,需要重复绘制
+    private boolean isFirst = true;
+
     /**
      * 日历类，用来获取当前时间
      */
@@ -173,7 +176,9 @@ public class SmartisanTime extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        calendar = Calendar.getInstance();
+        if (isFirst) {
+            calendar = Calendar.getInstance();
+        }
         getTime();
         //将画布移到中央
         canvas.translate(mSize / 2, mSize / 2);
@@ -189,13 +194,18 @@ public class SmartisanTime extends View {
         drawMinute(canvas);
 
         drawInCircle(canvas);
-
-        drawSecond(canvas);
+        if (isFirst) {
+            drawSecond(canvas, second * DEGREE + 1);
+        } else {
+            drawSecond(canvas, second * DEGREE);
+        }
 
         drawInRedCircle(canvas);
 
-        //每隔1秒重绘View,重绘会调用onDraw()方法
-        postInvalidateDelayed(1000);
+        if (isFirst) {
+            //每隔1秒重绘View,重绘会调用onDraw()方法
+            postInvalidateDelayed(1000);
+        }
     }
 
     /**
@@ -313,12 +323,16 @@ public class SmartisanTime extends View {
      *
      * @param canvas 画布
      */
-    private void drawSecond(Canvas canvas) {
+    private void drawSecond(Canvas canvas, float degrees) {
         int length = mSize / 2;
         canvas.save();
-        canvas.rotate(second * DEGREE);
+        canvas.rotate(degrees);
         canvas.drawLine(0, length / 5, 0, -length * 4 / 5, secondPaint);
         canvas.restore();
+        isFirst = !isFirst;
+        if (!isFirst) {
+            invalidate();
+        }
     }
 
     /**
