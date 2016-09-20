@@ -274,7 +274,7 @@ public class SmartisanTime extends View {
         int length = mSize / 4;
         canvas.save();
         //这里没有算秒钟对时钟的影响
-        float degree = hour * 5 * DEGREE + minute / 2;
+        float degree = hour * 5 * DEGREE + minute / 2f;
         canvas.rotate(degree, 0, 0);
         canvas.drawLine(0, 0, 0, -length, hourPaint);
         canvas.restore();
@@ -288,7 +288,7 @@ public class SmartisanTime extends View {
     private void drawMinute(Canvas canvas) {
         int length = mSize / 3;
         canvas.save();
-        float degree = minute * DEGREE + second / 10;
+        float degree = minute * DEGREE + second / 10f;
         canvas.rotate(degree, 0, 0);
         canvas.drawLine(0, 0, 0, -length, minutePaint);
         canvas.restore();
