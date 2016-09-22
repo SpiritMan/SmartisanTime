@@ -258,10 +258,8 @@ public class SmartisanTime extends View {
         timeTextPaint.setTextSize(sp2px(textSize));
         float scaleWidth = timeTextPaint.measureText("12");
         canvas.drawText("12", -scaleWidth / 2, -radius + 30 + dp2px(textSize), timeTextPaint);
-        canvas.rotate(90, 0, 0);
         scaleWidth = timeTextPaint.measureText("3");
-        canvas.drawText("3", -scaleWidth / 2, -radius + 30 + dp2px(textSize), timeTextPaint);
-        canvas.rotate(-90, 0, 0);
+        canvas.drawText("3", radius - 30 - dp2px(textSize), scaleWidth / 2, timeTextPaint);
         canvas.restore();
     }
 
