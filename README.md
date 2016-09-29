@@ -6,4 +6,4 @@
 
 直接上效果图：
 
-![image](http://7xw00x.com1.z0.glb.clouddn.com/smartisanTime.gif)
+![image](./images/smartisanTime.gif)
